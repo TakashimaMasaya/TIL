@@ -1,15 +1,26 @@
 - nilガード
 
-number || = 10
+`number || = 10`
 
-これは　number or number = 10　と同じ意味
+これは　
+`number += 1`
+と同じ
 
-もしnumberがnumberがnilでないならnumberをnilなら10を代入してnumberを出力するということ
+`number += 1`->`number = number + 1`
+これは誰でもわかる。それと同じ考え方
+
+`number ||= 10`->`number = number || 10`
+
+
+既に入っていたら`number = number` で
+入っていなかったら `number = 10`
+
+
 
 
 - ぼっち演算子 &.
 
-name = object.&name
+`name = object.&name`
 
 これはもしobjectがtrueならobject.nameをfalseならnilを出力するということ
 
