@@ -12,11 +12,11 @@
 
 Newアクションでは空のオブジェクトを生成する。
 
-`new.erb`で`from_with`を使ってHTMLにFromを生成する。`form_with`は`action属性`や`name属性`,`method`を自動で生成してくれる。
+`new.erb`で`from_with`を使ってHTMLにFromを生成する。`form_with`は`action属性`や`name属性`,`method`を設定しているモデルによって自動で生成してくれる。
 
 - nameにはusers[name]
-- actionには/userなどと自動に設定する。
-- method POST
+- actionには新規登録の場合モデルに設定しているのは空のオブジェクトなので/userが設定される
+- methodは新規登録の場合モデルに設定しているのは空のオブジェクトなのでPOSTが設定される
 
 
 **ユーザーを登録する**
@@ -77,14 +77,14 @@ end
 
 Newアクションでは空のオブジェクトを生成する。
 
-`new.erb`には`from_with`を使ってFromを生成する。form_withはaction属性やname属性,methodを自動で生成してHTMLに出力してくれる。
+`new.erb`には`from_with`を使ってFromを生成する。form_withはaction属性やname属性,methodを設定しているモデルによって自動で生成してHTMLに出力してくれる。
 
  f.text_field :name ここでname属性を決めているのでタスク名(name)を入力する
  - nameにはtasks[name]
- - actionには/taskなどと自動に設定する。
- - method POST
+ - actionには新規登録の場合モデルに設定しているのは空のオブジェクトなので/taskと自動に設定される。
+ - methodは新規登録の場合モデルに設定しているのは空のオブジェクトなのでPOSTが設定される
 
- 作成ボタンを押すと情報はPOSTに入りリクエストボディで送信される
+ 作成ボタンを押すとPOSTがリクエストボディの中で送信される
 
  **タスクを登録する**
 
