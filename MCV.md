@@ -1,16 +1,16 @@
 # ユーザーの一覧が表示されるまで
 
-**From画面を作る**
+**Form画面を作る**
 
-登録Fromを表示するには
+登録Formを表示するには
 
 - アクション名->New          
 - メソッド-> GET        
 - URL  ->admin/users/new  
 
-を使うので`routes.rb`で`admin/users/new`にHTTPリクエスト（メソッドGET)がきた時にUserコントローラーとNewアクションを呼ぶようにする。
+を使うので`routes.rb`で`admin/users/new`にHTTPリクエスト（メソッドGET)がきた時にUserコントローラーとnewアクションを呼ぶようにする。
 
-Newアクションでは空のオブジェクトを生成する。
+newアクションでは空のオブジェクトを生成する。
 
 `new.erb`で`from_with`を使ってHTMLにFromを生成する。`form_with`は`action属性`や`name属性`,`method`を設定しているモデルによって自動で生成してくれる。
 
@@ -22,7 +22,7 @@ Newアクションでは空のオブジェクトを生成する。
 **ユーザーを登録する**
 
 ユーザーを登録するには
-- アクション名 ->Create          
+- アクション名 ->create          
 - メソッド->Post       
 - URL -> admin/users  
 
@@ -64,20 +64,20 @@ end
 `index.erb`内ではコントローラーで定義した変数から一つずつループで情報を取り出してHTMLに出力する。
 
 
-# ユーザーの一覧が表示されるまで
+# タスクの一覧が表示されるまで
 
 **新規作成ページを表示する**
 
 新規作成ページを表示するには
- - アクション名->New          
+ - アクション名->new          
  - メソッド -> GET        
 - URL ->admin/tasks/new  
 
-を使うので`routes.rb`で`admin/tasks/new`にHTTPリクエスト（メソッドGet)がきた時に`Taskコントローラー`と`Newアクション`を呼ぶようにする。
+を使うので`routes.rb`で`admin/tasks/new`にHTTPリクエスト（メソッドGet)がきた時に`Taskコントローラー`と`newアクション`を呼ぶようにする。
 
-Newアクションでは空のオブジェクトを生成する。
+newアクションでは空のオブジェクトを生成する。
 
-`new.erb`には`from_with`を使ってFromを生成する。form_withはaction属性やname属性,methodを設定しているモデルによって自動で生成してHTMLに出力してくれる。
+`new.html.erb`には`from_with`を使ってFromを生成する。form_withはaction属性やname属性,methodを設定しているモデルによって自動で生成してHTMLに出力してくれる。
 
  f.text_field :name ここでname属性を決めているのでタスク名(name)を入力する
  - nameにはtasks[name]
@@ -108,11 +108,6 @@ end
 def create
     @task = Task.new(task_params.merge(user_id: current_user.id))
 
-    if params[:back].present?
-      render :new
-      return
-    end
-
     if @task.save
       TaskMailer.creation_email(@task).deliver_now
       redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。"
@@ -131,18 +126,13 @@ def create
  - メソッド ->Get       
  - URL ->/tasks 
 
-を使うので`routes.rb`で`/users`にHTTPリクエスト（メソッドGet)がきた時に`Userコントローラー`と`indexアクション`を呼ぶようにする。
+を使うので`routes.rb`で`/tasks`にHTTPリクエスト（メソッドGet)がきた時に`Taskコントローラー`と`indexアクション`を呼ぶようにする。
 
 indexメソッドはこのようになっている
 ```
 def index
     @q = current_user.tasks.ransack(params[:q])
     @tasks = @q.result(distinct: true).page(params[:page])
-
-    respond_to do |format|
-      format.html
-      format.csv{ send_data @tasks.generate_csv, filename: "tasks-#{Time.zone.now.strftime('%Y%m%d%S')}.csv"}
-    end
   end
 ```
 
