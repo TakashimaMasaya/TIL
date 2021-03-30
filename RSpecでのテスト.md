@@ -1,0 +1,6 @@
+- RSpec gemをインストール
+- spec_helperで設定
+- Factory botをgemでインストール
+- Factoriesで必要なものを設定　今回はuser taskの2つ
+- tasks_specで前提条件、行う動作、結果を基本形に沿って書く
+- letでの共通化可能
